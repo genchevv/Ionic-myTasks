@@ -7,6 +7,8 @@ import { NavController } from 'ionic-angular';
 })
 export class AboutPage {
 
+	versionNumber = "1.0.0";
+
   constructor(public navCtrl: NavController) {
 
   }
