@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, List } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { Task } from './task';
 
@@ -13,7 +14,7 @@ export class HomePage {
 
 	public tasks: Task[];
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private keyboard: Keyboard) {
   	this.tasks = [
   		{id: 1, title: 'Wash the dishes', isDone:false, isEdit: false},
   		{id: 2, title: 'Call Maria', isDone:false, isEdit: false},
@@ -25,6 +26,8 @@ export class HomePage {
   	if(title) {
   		this.tasks.push(new Task(title));
   	}
+
+    this.keyboard.close();
   }
 
   editTask(task) {
