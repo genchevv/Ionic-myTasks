@@ -8,32 +8,33 @@
   <ion-title padding-top padding-bottom>My Tasks Today</ion-title>
 
   <ion-item>
-    <ion-input type="text" placeholder="Add a new task..."></ion-input>
+    <ion-input #newTask (keyup.enter)="addTask(newTask.value); newTask.value='' " type="text" placeholder="Add a new task..."></ion-input>
 
-    <button ion-button item-right>
+    <button ion-button item-right (click)="addTask(newTask.value); newTask.value='' ">
       <ion-icon name="md-add-circle"></ion-icon>
     </button>
   </ion-item>
 
-  <ion-list>
-    <ion-item-sliding>
+  <ion-list no-lines>
+    <ion-item-sliding *ngFor="let task of tasks; let index = id ">
 
-      <ion-item>
-        <ion-checkbox></ion-checkbox>
+      <ion-item no-lines>
+        <ion-checkbox [checked]="task.isDone"></ion-checkbox>
 
-        <ion-item item-left text-wrap>
-          <ion-label>New Task</ion-label>
+        <ion-item no-lines item-left text-wrap>
+          <ion-label *ngIf="!task.isEdit" color="primary">{{task.title}}</ion-label>
+          <ion-input *ngIf="task.isEdit" [(ngModel)]="task.title" (keyup.enter)="task.isEdit=false"></ion-input>
         </ion-item>
       </ion-item>
 
       <ion-item-options side="left">
-        <button ion-button>
+        <button ion-button (click)="editTask(task)">
           <ion-icon name="ios-create"></ion-icon>
         </button>
       </ion-item-options>
 
       <ion-item-options side="right">
-        <button ion-button>
+        <button ion-button color="danger" (click)="deleteTask(id)">
           <ion-icon name="md-trash"></ion-icon>
         </button>
       </ion-item-options>
